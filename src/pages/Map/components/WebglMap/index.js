@@ -242,7 +242,7 @@ class Map extends PureComponent {
   handleMarkerClick = (evt, data) => {
     evt.preventDefault();
 
-    const id = data.planning_section_ids[0];
+    const id = idx(data, _ => _.planning_section_ids[0]);
     const center = data.center.coordinates;
     const name = idx(data, _ => _.planning_sections[0].name);
     const match = matchPath(this.props.location.pathname, {

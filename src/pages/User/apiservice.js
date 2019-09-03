@@ -83,7 +83,7 @@ export async function apiLikes(token) {
   let response = {};
 
   try {
-    response = await ky(`${config.apiUrl}/plannings?page_size=200`, { method: 'GET', headers, timeout: 20000 }).json();
+    response = await ky(`${config.apiUrl}/projects?page_size=200`, { method: 'GET', headers, timeout: 20000 }).json();
   } catch (e) {
     const error = await e.response.json();
     response.error = error;
