@@ -226,17 +226,22 @@ const config = {
     },
     layers: {
       bgLayer: 'fmb-background',
+
       projectsLayer: 'fmb-projects',
+
       centerLayer: 'fmb-center',
       side0Layer: 'fmb-side-0',
       side1Layer: 'fmb-side-1',
-      buildings3d: '3d-buildings',
-      dimmingLayer: 'fmb-dimming',
-      overlayLine: 'fmb-overlay-line',
+
       centerLayerSmall: 'fmb-center-NVS',
       side0LayerSmall: 'fmb-side-0-NVS',
       side1LayerSmall: 'fmb-side-1-NVS',
-      overlayLineSmall: 'fmb-overlay-line-HVS',
+
+      buildings3d: '3d-buildings',
+      dimmingLayer: 'fmb-dimming',
+      overlayLine: 'fmb-overlay-line',
+      overlayLineSmall: 'fmb-overlay-line-NVS',
+
       intersections: 'intersections',
       intersectionsSide0: 'intersections-side-0',
       intersectionsSide1: 'intersections-side-1',

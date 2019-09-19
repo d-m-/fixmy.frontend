@@ -19,7 +19,7 @@ import {
   parseUrlOptions
 } from '~/pages/Map/map-utils';
 
-const MB_STYLE_URL = `${config.map.style}?fresh=asdas`;
+const MB_STYLE_URL = `${config.map.style}?fresh=true`;
 MapboxGL.accessToken = config.map.accessToken;
 
 const StyledMap = styled.div`
@@ -142,9 +142,10 @@ class Map extends PureComponent {
   }
 
   handleLoad = () => {
-    // this.map.on('click', config.map.layers.bgLayer, this.handleClick);
+    this.map.on('click', config.map.layers.bgLayer, this.handleClick);
     this.map.on('click', config.map.layers.projectsLayer, this.handleClick);
-    // this.map.on('click', config.map.layers.intersectionsOverlay, this.handleIntersectionClick);
+    this.map.on('click', config.map.layers.intersectionsOverlay, this.handleIntersectionClick);
+
     this.map.on('dragend', this.handleMoveEnd);
     this.map.on('move', this.handleMove);
 
@@ -181,10 +182,16 @@ class Map extends PureComponent {
     }
 
     toggleLayer(this.map, config.map.layers.projectsLayer, isPlanungen);
-    toggleLayer(this.map, config.map.layers.bgLayer, true);
+
+    toggleLayer(this.map, config.map.layers.bgLayer, isZustand);
+    toggleLayer(this.map, config.map.layers.intersectionsOverlay, isZustand);
     toggleLayer(this.map, config.map.layers.centerLayer, isZustand);
     toggleLayer(this.map, config.map.layers.side0Layer, isZustand);
     toggleLayer(this.map, config.map.layers.side1Layer, isZustand);
+    toggleLayer(this.map, config.map.layers.centerLayerSmall, isZustand);
+    toggleLayer(this.map, config.map.layers.side0LayerSmall, isZustand);
+    toggleLayer(this.map, config.map.layers.side1LayerSmall, isZustand);
+
     toggleLayer(this.map, config.map.layers.buildings3d, this.props.show3dBuildings);
     toggleLayer(this.map, config.map.layers.dimmingLayer, this.props.dim);
     toggleLayer(this.map, config.map.layers.overlayLine, this.props.drawOverlayLine);
@@ -194,7 +201,6 @@ class Map extends PureComponent {
 
   handleClick = (e) => {
     const properties = idx(e.features, _ => _[0].properties);
-    console.log(properties);
     const geometry = idx(e.features, _ => _[0].geometry);
     const center = getCenterFromGeom(geometry, [e.lngLat.lng, e.lngLat.lat]);
 
@@ -203,12 +209,16 @@ class Map extends PureComponent {
     }
 
     if (properties) {
-      const name = slugify(properties.name || '').toLowerCase();
+      const name = properties.name || properties.street_name || '';
+      const nameSlug = slugify(name).toLowerCase();
       const { id } = properties;
+
+      properties.name = name;
+
       // when user is in detail mode, we don't want to show the tooltip again,
       // but directly switch to another detail view
       if (this.props.activeSection && !this.props.displayPopup) {
-        const detailRoute = `/${this.props.activeView}/${id}/${name}`;
+        const detailRoute = `/${this.props.activeView}/${id}/${nameSlug}`;
         this.props.history.push(detailRoute);
       } else {
         Store.dispatch(MapActions.setPopupData(properties));
@@ -249,15 +259,13 @@ class Map extends PureComponent {
 
     const center = data.center.coordinates;
 
-    console.log(data.center);
-
     const match = matchPath(this.props.location.pathname, {
       path: '/(zustand|planungen)/:id/:name?',
       exact: true
     });
 
     const properties = {
-      sideNone_planning_title: data.title,
+      title: data.title,
       name: name || '-'
     };
 

@@ -90,7 +90,7 @@ class MapPopup extends PureComponent {
           </Fragment>
         ) : (
           <Fragment>
-            {isPlaningView && <PlanningStatus section={data} />}
+            {isPlaningView && <PlanningStatus data={data} />}
             {isStatus && <BikeLevelStatus onClick={this.onDetailClick} section={data} />}
             <MoreButtonWrapper>
               <Button onClick={this.onDetailClick}>
