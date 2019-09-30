@@ -94,11 +94,11 @@ const TopSection = ({ toUrl }) => (
       <StyledMenuButton whiteFill="true" />
       <img width="92px" src={FixMyLogo} alt="logo" />
       <StyledHeading>Melde neue Fahrradbügel für Friedrichshain-Kreuzberg</StyledHeading>
-      <StyledButton className="wiggle">
-        <StyledLink to={toUrl}>
+      <StyledLink to={toUrl}>
+        <StyledButton className="wiggle">
           <strong>Sagt uns wo</strong><br /> in 30 Sekunden
-        </StyledLink>
-      </StyledButton>
+        </StyledButton>
+      </StyledLink>
     </FlexWrapper>
     <ScrollLink />
   </Section>
