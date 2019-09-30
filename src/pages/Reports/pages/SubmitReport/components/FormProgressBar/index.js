@@ -23,11 +23,10 @@ const BackLink = styled.a`
 
 const AbortLink = styled(BackLink)`
   right: 34px;
-  left: unset;
+  left: auto;
 `;
 
 const NavBar = styled.div`
-  height: 54px;
   box-sizing: unset;
   display: flex;
   justify-content: flex-start;
