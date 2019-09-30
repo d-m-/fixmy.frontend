@@ -7,7 +7,7 @@ import Markdown from '~/pages/Markdown/Markdown';
 import SubmitReportDialog from './SubmitReportDialog';
 
 const SubmitReportWrapper = styled.div`
-  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `;

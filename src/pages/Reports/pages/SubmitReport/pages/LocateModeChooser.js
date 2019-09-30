@@ -12,7 +12,7 @@ import MapIcon from '~/images/reports/noun-map-1909219.svg';
 import ErrorMessage from '~/pages/Reports/components/ErrorMessage';
 
 const Wrapper = styled.div`
-  flex: 2 ;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
