@@ -33,14 +33,14 @@ export async function apiLogin(json, formFunctions) {
 
 export async function apiUpdate(json, token, formFunctions) {
   if (json.new_username) {
-    return handleRequest('users/change_username/', { json, token }, formFunctions, 'text');
+    return handleRequest('users/set_username/', { json, token }, formFunctions, 'text');
   }
 
   if (json.new_password) {
-    return handleRequest('password/', { json, token }, formFunctions, 'text');
+    return handleRequest('users/set_password/', { json, token }, formFunctions, 'text');
   }
 
-  handleRequest('users/me/', { json, token, method: 'PUT' }, { setSubmitting: () => {}, setErrors: () => {} }, 'json');
+  return handleRequest('users/me/', { json, token, method: 'PUT' }, { setSubmitting: () => {}, setErrors: () => {} }, 'json');
 }
 
 export async function apiVerify(token) {
@@ -71,11 +71,11 @@ export async function apiUser(token) {
 }
 
 export async function apiPasswordReset(json, formFunctions) {
-  return handleRequest('password/reset/confirm', { method: 'POST', json }, formFunctions, false);
+  return handleRequest('users/reset_password_confirm/', { method: 'POST', json }, formFunctions, false);
 }
 
 export async function apiPasswordForgot(json, formFunctions) {
-  return handleRequest('password/reset', { method: 'POST', json }, formFunctions, false);
+  return handleRequest('users/reset_password/', { method: 'POST', json }, formFunctions, false);
 }
 
 export async function apiLikes(token, itemType = 'projects') {
